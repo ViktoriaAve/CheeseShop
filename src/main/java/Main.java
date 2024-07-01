@@ -6,32 +6,30 @@ public class Main {
 
     public static void main(String[] args) {
         while(true) {
-            System.out.println("Press 1, to add an cheese");
-            System.out.println("Press 2, to print all cheese");
+            System.out.println("*********************************");
+            System.out.println("Press 1, to print list of cheese");
+            System.out.println("Press 2, to add cheese");
+            System.out.println("Press 3, to remove cheese");
+
             int action = scn.nextInt();
             //If the user chooses 1, then we call addItem();
             if (action == 1) {
-                addCheese();
-            } else if (action == 2) {
                 printListOfCheese();
-            } else{
+                continue;
+            } else if (action == 2) {
+                addCheese();
+                continue;
+            } else if (action == 3) {
+                deleteCheese();
+                continue;
+            } else {
                 break;
             }
         }
 
-
-        //If the user chooses 2, then we call printItems();
-
-        //If the user chooses 3, then we call remove item
-        //If the user chooses 4, then we call update item
-
-
-        //Create a function that remove items
-        //Create a function that update items
-
     }
 
-    public static void addCheese(){
+    public static void addCheese() {
         System.out.println("Provide an cheese id");
         int id = scn.nextInt();
         System.out.println("Provide the cheese name");
@@ -40,6 +38,18 @@ public class Main {
         int cost = scn.nextInt();
         var cheese = new Cheese(id, name, cost);
         CheeseService.addCheese(cheese);
+    }
+
+    public static void deleteCheese() {
+        System.out.println("Provide an cheese id");
+        int id = scn.nextInt();
+        var listOfCheese = CheeseService.getListOfCheese();
+        for (var cheese : listOfCheese){
+            if (id == cheese.getId()) {
+                cheeseService.removeCheese(id);
+                System.out.println(cheese.getId() + " " + cheese.getName() + " is removed.");
+            }
+        }
     }
 
     public static void printListOfCheese(){
